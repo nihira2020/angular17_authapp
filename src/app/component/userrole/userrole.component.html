@@ -1,0 +1,58 @@
+<form [formGroup]="roleform" (ngSubmit)="Saveroles()">
+<mat-card>
+    <mat-card-header>
+        <h1>User Role Assignment</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Select user Role</mat-label>
+        <mat-select formControlName="userrole" (selectionChange)="rolechange($event)" >
+            @for(item of rolelist;track item){
+                <mat-option value="{{item.code}}">{{item.name}}</mat-option>
+            }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card>
+        <mat-card-content>
+
+            <table style="width: 100%;" formArrayName="access">
+                <thead>
+                    <tr>
+                        <th>Menu name</th>
+                        <th>Have view</th>
+                        <th>Have Add</th>
+                        <th>Have Edit</th>
+                        <th>Have Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of getrows.controls;let i=index" [formGroupName]="i">
+                        <td>{{item.value.menucode}}</td>
+                        <td>
+                            <mat-checkbox formControlName="haveview"></mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox formControlName="haveadd"></mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox formControlName="haveedit"></mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox formControlName="havedelete"></mat-checkbox>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </mat-card-content>
+      </mat-card>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary">Save</button>
+    </mat-card-actions>
+</mat-card>
+</form>
